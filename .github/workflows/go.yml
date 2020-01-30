@@ -30,8 +30,7 @@ jobs:
     - name: Automatic Releases
       uses: marvinpinto/action-automatic-releases@v0.2.2
       with:
-        # GitHub secret token
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
-        # Git tag (for automatic releases)
+        automatic_release_tag: latest
         files: |
           goCat
