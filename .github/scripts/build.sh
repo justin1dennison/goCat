@@ -11,5 +11,4 @@ done
 
 
 echo "-----> Build is complete. List of files:"
-cd $release_path
 ls -al
