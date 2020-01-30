@@ -37,7 +37,8 @@ jobs:
         automatic_release_tag: latest
         files: ${{ matrix.platform }}.${{ matrix.arch }}.goCat
 
-    - uses: actions/upload-artifact@master
+    - name: Upload Artifacts 
+      uses: actions/upload-artifact@master
       with:
         name: ${{ matrix.platform }}.${{ matrix.arch }}.goCat
         path: ${{ matrix.platform }}.${{ matrix.arch }}.goCat
