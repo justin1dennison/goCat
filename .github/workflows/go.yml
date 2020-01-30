@@ -38,6 +38,7 @@ jobs:
   release:
     name: Release binaries
     runs-on: ubuntu-latest
+    needs: build
     steps:
       - name: Download the results from builds
         uses: actions/download-artifact@v1
