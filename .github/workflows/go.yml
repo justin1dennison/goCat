@@ -5,17 +5,18 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        platform: [darwin, linux, windows]
+        arch: [amd64, 386]
     steps:
-
     - name: Set up Go 1.13
       uses: actions/setup-go@v1
       with:
         go-version: 1.13
       id: go
-
     - name: Check out code into the Go module directory
       uses: actions/checkout@v2
-
     - name: Get dependencies
       run: |
         go get -v -t -d ./...
@@ -23,14 +24,20 @@ jobs:
             curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
             dep ensure
         fi
-
     - name: Build
-      run: ./.github/scripts/build.sh
-
+      run: go build -v -o ${{ matrix.platform }}.${{ matrix.arch }}.goCat .
     - name: Automatic Releases
       uses: marvinpinto/action-automatic-releases@v0.2.2
       with:
-        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
         automatic_release_tag: latest
-        files: |
-          *.zip
+        files: ${{ matrix.platform }}.${{ matrix.arch }}.goCat
+    - uses: actions/upload-artifact@master
+      with:
+        name: ${{ matrix.platform }}.${{ matrix.arch }}.goCat
+        path: ${{ matrix.platform }}.${{ matrix.arch }}.goCat
+
+
+
+
+          
