@@ -27,7 +27,7 @@ jobs:
           fi
 
       - name: Build
-        run: go build -v -o ${{ matrix.platform }}.${{ matrix.arch }}.goCat .
+        run: go build -ldflags "-s -w" -v -o ${{ matrix.platform }}.${{ matrix.arch }}.goCat .
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@master
